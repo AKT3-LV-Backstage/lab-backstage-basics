@@ -1,0 +1,31 @@
+# GitHub Actions workflow to build a Docker image for the templated service
+# Replace the container image name with the templated service name
+# If you want to push the image to a registry, add the necessary steps for authentication and change 'push' to 'true'
+
+name: Build Docker Image
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./template-base/Dockerfile
+          push: false
+          tags: |
+            templated-service:${{ github.sha }}
