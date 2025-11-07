@@ -46,8 +46,6 @@ parameters:
                   - workflow
             allowedHosts:
               - github.com
-            allowedHosts:
-              - github.com
             allowedOwners:
               - AKT3-Backstage
 steps:
